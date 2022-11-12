@@ -62,17 +62,25 @@ window.addEventListener('scroll', function () {
 
 
 // JQ click close menu
-$('.js-scroll-trigger').click(function () {
-    $('.navbar-collapse').collapse('hide');
-})
-
-$('#click').on('click', function () {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Just Show ',
-        showConfirmButton: false,
-        timer: 1500
+$(document).ready(function () {
+    $('.js-scroll-trigger').click(function () {
+        $('.navbar-collapse').collapse('hide');
     })
 
+
+    $('.navbar-nav').on('click', 'a', function () {
+        $('.navbar-nav a.active').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('#click').on('click', function () {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Just Show ',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+    })
 })
