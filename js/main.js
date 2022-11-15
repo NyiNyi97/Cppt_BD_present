@@ -58,11 +58,69 @@ window.addEventListener('scroll', function () {
     }
 })
 
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+    toastTrigger.addEventListener('click', () => {
+        const toast = new bootstrap.Toast(toastLiveExample)
 
+        toast.show()
+    })
+}
+
+const timeElement = document.querySelector(".time");
+const dateElement = document.querySelector(".date");
+
+/**
+ * @param {Date} date
+ */
+function formatTime(date) {
+    const hours12 = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes();
+    const isAm = date.getHours() < 12;
+
+    return `${hours12.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")} ${isAm ? "AM" : "PM"}`;
+}
+
+/**
+ * @param {Date} date
+ */
+function formatDate(date) {
+    const MONTHS = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
+
+    return `${MONTHS[date.getMonth()]}, ${date.getDate()}, ${date.getFullYear()}.`;
+}
+
+setInterval(() => {
+    const now = new Date();
+
+    timeElement.textContent = formatTime(now);
+    dateElement.textContent = formatDate(now);
+}, 200);
 
 
 // JQ click close menu
 $(document).ready(function () {
+
+    setTimeout(function () {
+        $(".loader_bg").fadeToggle();
+    }, 2500);
+
     $('.js-scroll-trigger').click(function () {
         $('.navbar-collapse').collapse('hide');
     })
@@ -73,14 +131,4 @@ $(document).ready(function () {
         $(this).addClass('active');
     });
 
-    $('#click').on('click', function () {
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Just Show ',
-            showConfirmButton: false,
-            timer: 1500
-        })
-
-    })
 })
